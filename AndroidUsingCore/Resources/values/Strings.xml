@@ -11,7 +11,8 @@
 	<string name="enter_json">Enter JSON here</string>
 	<string name="default_json">{\"key\": \"value\"}</string>
 	<string name="result">Result</string>
-	<string name="past_results">View past results</string>
+	<string name="view_past_results">View past results</string>
+	<string name="past_results">Past results</string>
 
 </resources>
 	

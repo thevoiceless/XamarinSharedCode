@@ -9,7 +9,7 @@ using Core;
 
 namespace AndroidUsingCore
 {
-	[Activity (Label = "AndroidUsingCore", MainLauncher = true)]
+	[Activity (Label = "@string/app_name", MainLauncher = true)]
 	public class MainActivity : Activity, Core.NetworkCallbacks
 	{
 		private int count = 1;
@@ -17,14 +17,16 @@ namespace AndroidUsingCore
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
-
-			// Set our view from the "main" layout resource
 			SetContentView(Resource.Layout.Main);
 
-			// Get our button from the layout resource and attach an event to it
 			Button clickButton = FindViewById<Button>(Resource.Id.clickButton);
 			clickButton.Click += delegate {
 				clickButton.Text = String.Format("{0} clicks!", count++);
+			};
+
+			Button pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
+			pastResultsButton.Click += delegate {
+				StartActivity(typeof(PastResultsActivity));
 			};
 
 			// Try accessing something from Core
