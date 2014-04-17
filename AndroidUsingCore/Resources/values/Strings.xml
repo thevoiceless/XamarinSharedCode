@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">AndroidUsingCore</string>
+
+	<string name="app_name">Android Using Core</string>
 
 	<string name="click_me">Click Me!</string>
 	<string name="network_button">Validate JSON</string>
@@ -10,6 +11,7 @@
 	<string name="enter_json">Enter JSON here</string>
 	<string name="default_json">{\"key\": \"value\"}</string>
 	<string name="result">Result</string>
+	<string name="past_results">View past results</string>
 
 </resources>
 	
