@@ -10,7 +10,7 @@ using Core;
 namespace AndroidUsingCore
 {
 	[Activity (Label = "AndroidUsingCore", MainLauncher = true)]
-	public class MainActivity : Activity
+	public class MainActivity : Activity, Core.NetworkCallbacks
 	{
 		private int count = 1;
 
@@ -33,11 +33,25 @@ namespace AndroidUsingCore
 
 			// Network request
 			Button networkButton = FindViewById<Button>(Resource.Id.networkButton);
-			networkButton.Click += async delegate {
-				string json = await controller.MakeRequest();
-				ValidatedJSON jsonObj = ValidatedJSON.createObject(json);
-				Console.WriteLine(jsonObj);
+			networkButton.Click += delegate {
+				controller.MakeRequest(this);
 			};
+		}
+
+		void Core.NetworkCallbacks.OnSuccess(Object data)
+		{
+			string json = (string) data;
+			ValidatedJSON jsonObj = ValidatedJSON.CreateObject(json);
+
+			if (jsonObj.IsValid())
+				Toast.MakeText(this, Resource.String.valid, ToastLength.Short).Show();
+			else
+				Toast.MakeText(this, Resource.String.invalid, ToastLength.Short).Show();
+		}
+
+		void Core.NetworkCallbacks.OnFail()
+		{
+			Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
 		}
 	}
 }

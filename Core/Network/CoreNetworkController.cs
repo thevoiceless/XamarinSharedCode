@@ -6,6 +6,12 @@ using Newtonsoft.Json;
 
 namespace Core
 {
+	public interface NetworkCallbacks
+	{
+		void OnSuccess(Object data);
+		void OnFail();
+	}
+
 	public class CoreNetworkController
 	{
 		private static string url = "http://validate.jsontest.com/?json={\"key\":\"value\"}";
@@ -20,7 +26,7 @@ namespace Core
 			Console.WriteLine("SOMETHING");
 		}
 
-		public async Task<string> MakeRequest()
+		public async void MakeRequest(NetworkCallbacks callbacks)
 		{
 			Console.WriteLine("URL is {0}", url);
 
@@ -29,13 +35,13 @@ namespace Core
 			{
 				Task<string> contentsTask = httpClient.GetStringAsync(new Uri(url));
 				string result = await contentsTask;
-				Console.WriteLine(await contentsTask);
-				return result;
+				Console.WriteLine(result);
+				callbacks.OnSuccess(result);
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e.Message);
-				return "";
+				callbacks.OnFail();
 			}
 		}
 	}

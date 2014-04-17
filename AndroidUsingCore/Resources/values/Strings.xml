@@ -4,5 +4,8 @@
 
 	<string name="click_me">Click Me!</string>
 	<string name="network_button">Network request</string>
+	<string name="valid">Valid</string>
+	<string name="invalid">Invalid</string>
+	<string name="error">Error</string>
 </resources>
 	

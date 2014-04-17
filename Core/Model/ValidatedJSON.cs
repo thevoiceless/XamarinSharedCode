@@ -6,24 +6,35 @@ namespace Core
 {
 	public class ValidatedJSON
 	{
-		// These are attributes
 		[PrimaryKey, AutoIncrement]
-		// This is a property
 		public int Id { get; set; }
-		public String ObjOrArr { get; set; }
-		public bool Empty { get; set; }
-		public long ParseTimeNs { get; set; }
-		public bool Valid { get; set; }
-		public int Size { get; set; }
+		public String object_or_array { get; set; }
+		public bool empty { get; set; }
+		public long parse_time_nanoseconds { get; set; }
+		public bool validate { get; set; }
+		public int size { get; set; }
+
+		public static ValidatedJSON CreateObject(string json)
+		{
+			ValidatedJSON resultObj = JsonConvert.DeserializeObject<ValidatedJSON>(json,
+				new JsonSerializerSettings
+				{
+					Error = delegate(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e) {
+						e.ErrorContext.Handled = true;
+					}
+				});
+
+			return (resultObj == null) ? new ValidatedJSON() : resultObj;
+
+		}
 
 		public ValidatedJSON()
 		{
 		}
 
-		public static ValidatedJSON createObject(string json)
+		public bool IsValid()
 		{
-			ValidatedJSON resultObj = JsonConvert.DeserializeObject<ValidatedJSON>(json);
-			return resultObj;
+			return validate;
 		}
 	}
 }
