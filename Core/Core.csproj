@@ -35,9 +35,17 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Network\CoreNetworkController.cs" />
+    <Compile Include="DB\SQLite.cs" />
+    <Compile Include="DB\SQLiteAsync.cs" />
+    <Compile Include="Model\JSONResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Network\" />
+    <Folder Include="DB\" />
+    <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

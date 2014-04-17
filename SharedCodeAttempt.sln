@@ -69,6 +69,6 @@ Global
 		{D63FF989-88AB-485D-A433-3F7D0B99B070}.Release|x86.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = AndroidUsingCore\AndroidUsingCore.csproj
+		StartupItem = Core\Core.csproj
 	EndGlobalSection
 EndGlobal
