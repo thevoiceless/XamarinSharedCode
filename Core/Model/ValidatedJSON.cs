@@ -13,6 +13,8 @@ namespace Core
 		public long parse_time_nanoseconds { get; set; }
 		public bool validate { get; set; }
 		public int size { get; set; }
+		public string error { get; set; }
+		public string error_info { get; set; }
 
 		public static ValidatedJSON CreateObject(string json)
 		{
@@ -25,7 +27,6 @@ namespace Core
 				});
 
 			return (resultObj == null) ? new ValidatedJSON() : resultObj;
-
 		}
 
 		public ValidatedJSON()

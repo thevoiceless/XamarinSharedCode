@@ -34,7 +34,8 @@ namespace AndroidUsingCore
 			// Network request
 			Button networkButton = FindViewById<Button>(Resource.Id.networkButton);
 			networkButton.Click += delegate {
-				controller.MakeRequest(this);
+				string enteredJson = FindViewById<EditText>(Resource.Id.enterJson).Text;
+				controller.MakeRequest(enteredJson, this);
 			};
 		}
 
@@ -43,10 +44,11 @@ namespace AndroidUsingCore
 			string json = (string) data;
 			ValidatedJSON jsonObj = ValidatedJSON.CreateObject(json);
 
+			EditText resultBox = FindViewById<EditText>(Resource.Id.jsonResult);
 			if (jsonObj.IsValid())
-				Toast.MakeText(this, Resource.String.valid, ToastLength.Short).Show();
+				resultBox.Text = GetString(Resource.String.valid);
 			else
-				Toast.MakeText(this, Resource.String.invalid, ToastLength.Short).Show();
+				resultBox.Text = jsonObj.error;
 		}
 
 		void Core.NetworkCallbacks.OnFail()

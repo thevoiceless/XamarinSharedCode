@@ -14,7 +14,7 @@ namespace Core
 
 	public class CoreNetworkController
 	{
-		private static string url = "http://validate.jsontest.com/?json={\"key\":\"value\"}";
+		private static string url = "http://validate.jsontest.com/?json={0}";
 
 		public CoreNetworkController()
 		{
@@ -26,14 +26,15 @@ namespace Core
 			Console.WriteLine("SOMETHING");
 		}
 
-		public async void MakeRequest(NetworkCallbacks callbacks)
+		public async void MakeRequest(string jsonText, NetworkCallbacks callbacks)
 		{
-			Console.WriteLine("URL is {0}", url);
+			string requestUrl = String.Format(url, jsonText);
+			Console.WriteLine("URL is {0}", requestUrl);
 
 			var httpClient = new HttpClient();
 			try
 			{
-				Task<string> contentsTask = httpClient.GetStringAsync(new Uri(url));
+				Task<string> contentsTask = httpClient.GetStringAsync(new Uri(requestUrl));
 				string result = await contentsTask;
 				Console.WriteLine(result);
 				callbacks.OnSuccess(result);

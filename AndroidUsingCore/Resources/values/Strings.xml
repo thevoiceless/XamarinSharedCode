@@ -3,9 +3,13 @@
 	<string name="app_name">AndroidUsingCore</string>
 
 	<string name="click_me">Click Me!</string>
-	<string name="network_button">Network request</string>
-	<string name="valid">Valid</string>
-	<string name="invalid">Invalid</string>
+	<string name="network_button">Validate JSON</string>
+	<string name="valid">Valid JSON</string>
+	<string name="invalid">Invalid JSON</string>
 	<string name="error">Error</string>
+	<string name="enter_json">Enter JSON here</string>
+	<string name="default_json">{\"key\": \"value\"}</string>
+	<string name="result">Result</string>
+
 </resources>
 	
