@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Core
 {
@@ -19,21 +20,22 @@ namespace Core
 			Console.WriteLine("SOMETHING");
 		}
 
-		public async void MakeRequest()
+		public async Task<string> MakeRequest()
 		{
 			Console.WriteLine("URL is {0}", url);
 
 			var httpClient = new HttpClient();
 			try
 			{
-				Task<String> contentsTask = httpClient.GetStringAsync(new Uri(url));
-				// "await" returns control to the caller and the task continues to run on another thread
-				String result = await contentsTask;
-				Console.WriteLine(result);
+				Task<string> contentsTask = httpClient.GetStringAsync(new Uri(url));
+				string result = await contentsTask;
+				Console.WriteLine(await contentsTask);
+				return result;
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e.Message);
+				return "";
 			}
 		}
 	}

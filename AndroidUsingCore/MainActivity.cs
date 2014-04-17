@@ -33,8 +33,10 @@ namespace AndroidUsingCore
 
 			// Network request
 			Button networkButton = FindViewById<Button>(Resource.Id.networkButton);
-			networkButton.Click += delegate {
-				controller.MakeRequest();
+			networkButton.Click += async delegate {
+				string json = await controller.MakeRequest();
+				ValidatedJSON jsonObj = ValidatedJSON.createObject(json);
+				Console.WriteLine(jsonObj);
 			};
 		}
 	}

@@ -1,9 +1,10 @@
 ﻿using System;
 using SQLite;
+using Newtonsoft.Json;
 
 namespace Core
 {
-	public class JSONResponse
+	public class ValidatedJSON
 	{
 		// These are attributes
 		[PrimaryKey, AutoIncrement]
@@ -14,6 +15,16 @@ namespace Core
 		public long ParseTimeNs { get; set; }
 		public bool Valid { get; set; }
 		public int Size { get; set; }
+
+		public ValidatedJSON()
+		{
+		}
+
+		public static ValidatedJSON createObject(string json)
+		{
+			ValidatedJSON resultObj = JsonConvert.DeserializeObject<ValidatedJSON>(json);
+			return resultObj;
+		}
 	}
 }
 
