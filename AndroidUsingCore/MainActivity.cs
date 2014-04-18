@@ -22,7 +22,7 @@ namespace AndroidUsingCore
 
 			// Stuff from Core
 			CoreNetworkController controller = new CoreNetworkController();
-			db = new DBManager();
+			db = DBManager.GetInstance();
 			db.init();
 
 			Button clickButton = FindViewById<Button>(Resource.Id.clickButton);
@@ -38,6 +38,7 @@ namespace AndroidUsingCore
 
 			Button pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
 			pastResultsButton.Click += delegate {
+
 				StartActivity(typeof(PastResultsActivity));
 			};
 
@@ -56,13 +57,14 @@ namespace AndroidUsingCore
 			if (jsonObj.IsValid())
 			{
 				resultBox.Text = GetString(Resource.String.valid);
-				db.Insert<ValidatedJSON>(jsonObj);
-				Console.WriteLine("*********** {0} rows now in table", db.GetRowsInTable<ValidatedJSON>());
 			}
 			else
 			{
 				resultBox.Text = jsonObj.error;
 			}
+
+			db.Insert<ValidatedJSON>(jsonObj);
+			Console.WriteLine("*********** {0} rows now in table", db.GetRowCountForTable<ValidatedJSON>());
 		}
 
 		void NetworkCallbacks.OnFail()

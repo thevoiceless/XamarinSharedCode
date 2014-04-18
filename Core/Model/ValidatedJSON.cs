@@ -37,6 +37,11 @@ namespace Core
 		{
 			return validate;
 		}
+
+		public string AsJSON()
+		{
+			return JsonConvert.SerializeObject(this, Formatting.Indented);
+		}
 	}
 }
 
