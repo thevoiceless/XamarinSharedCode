@@ -20,8 +20,22 @@ namespace AndroidUsingCore
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.PastResults);
 
+			ActionBar.SetDisplayHomeAsUpEnabled(true);
+
 			DBManager db = DBManager.GetInstance();
 			ListAdapter = new ValidatedJSONAdapter(this, db.GetAll<ValidatedJSON>());
+		}
+
+		public override bool OnOptionsItemSelected (IMenuItem item)
+		{
+			switch (item.ItemId)
+			{
+				case Android.Resource.Id.Home:
+					OnBackPressed();
+					return true;
+			}
+
+			return base.OnOptionsItemSelected(item);
 		}
 	}
 
