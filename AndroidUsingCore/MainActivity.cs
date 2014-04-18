@@ -19,9 +19,18 @@ namespace AndroidUsingCore
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.Main);
 
+			CoreNetworkController controller = new CoreNetworkController();
+			controller.PrintSomething();
+
 			Button clickButton = FindViewById<Button>(Resource.Id.clickButton);
 			clickButton.Click += delegate {
 				clickButton.Text = String.Format("{0} clicks!", count++);
+			};
+
+			Button networkButton = FindViewById<Button>(Resource.Id.networkButton);
+			networkButton.Click += delegate {
+				string enteredJson = FindViewById<EditText>(Resource.Id.enterJson).Text;
+				controller.MakeRequest(enteredJson, this);
 			};
 
 			Button pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
@@ -29,15 +38,9 @@ namespace AndroidUsingCore
 				StartActivity(typeof(PastResultsActivity));
 			};
 
-			// Try accessing something from Core
-			CoreNetworkController controller = new CoreNetworkController();
-			controller.PrintSomething();
-
-			// Network request
-			Button networkButton = FindViewById<Button>(Resource.Id.networkButton);
-			networkButton.Click += delegate {
-				string enteredJson = FindViewById<EditText>(Resource.Id.enterJson).Text;
-				controller.MakeRequest(enteredJson, this);
+			Button moreStuffButton = FindViewById<Button>(Resource.Id.moreStuffButton);
+			moreStuffButton.Click += delegate {
+				StartActivity(typeof(MoreStuffActivity));
 			};
 		}
 

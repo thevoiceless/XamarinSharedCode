@@ -31,7 +31,7 @@ namespace iPhoneUsingCore
 
 			// Network request
 			this.networkButton.TouchUpInside += delegate {
-				controller.MakeRequest();
+//				controller.MakeRequest();
 			};
 		}
 
