@@ -10,7 +10,7 @@ using Core;
 namespace AndroidUsingCore
 {
 	[Activity (Label = "@string/app_name", MainLauncher = true)]
-	public class MainActivity : Activity, Core.NetworkCallbacks
+	public class MainActivity : Activity, NetworkCallbacks
 	{
 		private DBManager db;
 		private int count = 1;
@@ -47,7 +47,7 @@ namespace AndroidUsingCore
 			};
 		}
 
-		void Core.NetworkCallbacks.OnSuccess(Object data)
+		void NetworkCallbacks.OnSuccess(Object data)
 		{
 			string json = (string) data;
 			ValidatedJSON jsonObj = ValidatedJSON.CreateObject(json);
@@ -65,7 +65,7 @@ namespace AndroidUsingCore
 			}
 		}
 
-		void Core.NetworkCallbacks.OnFail()
+		void NetworkCallbacks.OnFail()
 		{
 			Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
 		}
