@@ -18,6 +18,20 @@ namespace AndroidUsingCore
 		{
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.MoreStuff);
+
+			ActionBar.SetDisplayHomeAsUpEnabled(true);
+		}
+
+		public override bool OnOptionsItemSelected (IMenuItem item)
+		{
+			switch (item.ItemId)
+			{
+				case Android.Resource.Id.Home:
+					OnBackPressed();
+					return true;
+			}
+
+			return base.OnOptionsItemSelected(item);
 		}
 	}
 }
