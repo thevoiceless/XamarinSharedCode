@@ -12,6 +12,7 @@ namespace AndroidUsingCore
 	[Activity (Label = "@string/app_name", MainLauncher = true)]
 	public class MainActivity : Activity, Core.NetworkCallbacks
 	{
+		private DBManager db;
 		private int count = 1;
 
 		protected override void OnCreate(Bundle bundle)
@@ -19,8 +20,10 @@ namespace AndroidUsingCore
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.Main);
 
+			// Stuff from Core
 			CoreNetworkController controller = new CoreNetworkController();
-			controller.PrintSomething();
+			db = new DBManager();
+			db.init();
 
 			Button clickButton = FindViewById<Button>(Resource.Id.clickButton);
 			clickButton.Click += delegate {
@@ -51,9 +54,15 @@ namespace AndroidUsingCore
 
 			EditText resultBox = FindViewById<EditText>(Resource.Id.jsonResult);
 			if (jsonObj.IsValid())
+			{
 				resultBox.Text = GetString(Resource.String.valid);
+				db.Insert<ValidatedJSON>(jsonObj);
+				Console.WriteLine("*********** {0} rows now in table", db.GetRowsInTable<ValidatedJSON>());
+			}
 			else
+			{
 				resultBox.Text = jsonObj.error;
+			}
 		}
 
 		void Core.NetworkCallbacks.OnFail()

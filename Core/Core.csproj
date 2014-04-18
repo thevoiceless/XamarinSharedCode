@@ -41,7 +41,7 @@
     <Compile Include="DB\SQLite.cs" />
     <Compile Include="DB\SQLiteAsync.cs" />
     <Compile Include="Model\ValidatedJSON.cs" />
-    <Compile Include="DB\AsyncDBManager.cs" />
+    <Compile Include="DB\DBManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

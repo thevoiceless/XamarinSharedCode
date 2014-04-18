@@ -18,12 +18,6 @@ namespace Core
 
 		public CoreNetworkController()
 		{
-			Console.WriteLine("Create core network controller");
-		}
-
-		public void PrintSomething()
-		{
-			Console.WriteLine("SOMETHING");
 		}
 
 		public async void MakeRequest(string jsonText, NetworkCallbacks callbacks)
