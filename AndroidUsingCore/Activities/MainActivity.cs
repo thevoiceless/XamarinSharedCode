@@ -41,10 +41,10 @@ namespace AndroidUsingCore
 				StartActivity(typeof(PastResultsActivity));
 			};
 
-			Button moreStuffButton = FindViewById<Button>(Resource.Id.moreStuffButton);
-			moreStuffButton.Click += delegate {
-				StartActivity(typeof(MoreStuffActivity));
-			};
+//			Button moreStuffButton = FindViewById<Button>(Resource.Id.moreStuffButton);
+//			moreStuffButton.Click += delegate {
+//				StartActivity(typeof(MoreStuffActivity));
+//			};
 		}
 
 		#region NetworkCallbacks
