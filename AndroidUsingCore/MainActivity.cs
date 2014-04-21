@@ -25,9 +25,9 @@ namespace AndroidUsingCore
 			db = DBManager.GetInstance();
 			db.init();
 
-			Button clickButton = FindViewById<Button>(Resource.Id.clickButton);
-			clickButton.Click += delegate {
-				clickButton.Text = String.Format("{0} clicks!", count++);
+			Button countButton = FindViewById<Button>(Resource.Id.countButton);
+			countButton.Click += delegate {
+				countButton.Text = String.Format("{0} clicks!", count++);
 			};
 
 			Button networkButton = FindViewById<Button>(Resource.Id.networkButton);
@@ -38,7 +38,6 @@ namespace AndroidUsingCore
 
 			Button pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
 			pastResultsButton.Click += delegate {
-
 				StartActivity(typeof(PastResultsActivity));
 			};
 
@@ -47,6 +46,8 @@ namespace AndroidUsingCore
 				StartActivity(typeof(MoreStuffActivity));
 			};
 		}
+
+		#region NetworkCallbacks
 
 		void NetworkCallbacks.OnSuccess(Object data)
 		{
@@ -71,5 +72,7 @@ namespace AndroidUsingCore
 		{
 			Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
 		}
+
+		#endregion
 	}
 }

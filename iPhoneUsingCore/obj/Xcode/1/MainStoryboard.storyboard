@@ -62,6 +62,7 @@
                         <outlet property="countButton" destination="Co0-fs-aw8" id="orm-8y-5oZ"/>
                         <outlet property="enterJson" destination="eL4-qh-aZO" id="L4h-Rs-fec"/>
                         <outlet property="jsonResult" destination="thk-rK-vS3" id="M1h-9Y-eon"/>
+                        <outlet property="jsonText" destination="eL4-qh-aZO" id="H0c-Z4-IOC"/>
                         <outlet property="networkButton" destination="3Jk-xv-hd8" id="UA3-SL-Fo1"/>
                         <outlet property="pastResultsButton" destination="epG-cL-80Y" id="krE-Zs-asY"/>
                     </connections>
