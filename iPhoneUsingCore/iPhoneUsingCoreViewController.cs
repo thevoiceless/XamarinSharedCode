@@ -61,7 +61,8 @@ namespace iPhoneUsingCore
 
 		void NetworkCallbacks.OnFail()
 		{
-			// TODO
+			UIAlertView error = new UIAlertView("Error", "Network error", null, "OK", null);
+			error.Show();
 		}
 
 		#endregion

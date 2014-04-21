@@ -15,6 +15,7 @@ namespace Core
 	public class CoreNetworkController
 	{
 		private static string url = "http://validate.jsontest.com/?json={0}";
+		private static string badurl = "http://bad.jsontest.com/?json={0}";
 
 		public CoreNetworkController()
 		{
