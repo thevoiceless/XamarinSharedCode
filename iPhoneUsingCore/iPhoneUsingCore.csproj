@@ -102,13 +102,21 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="iPhoneUsingCoreViewController.cs" />
-    <Compile Include="iPhoneUsingCoreViewController.designer.cs">
+    <Compile Include="ViewControllers\iPhoneUsingCoreViewController.cs" />
+    <Compile Include="ViewControllers\iPhoneUsingCoreViewController.designer.cs">
       <DependentUpon>iPhoneUsingCoreViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\PastResultsViewController.cs" />
+    <Compile Include="ViewControllers\PastResultsViewController.designer.cs">
+      <DependentUpon>PastResultsViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
+    <InterfaceDefinition Include="ViewControllers\PastResultsViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="ViewControllers\" />
+  </ItemGroup>
 </Project>
