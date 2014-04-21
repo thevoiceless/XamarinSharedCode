@@ -67,6 +67,7 @@
     <AndroidResource Include="Resources\layout\MoreStuff.axml" />
     <AndroidResource Include="Resources\layout\JsonListItem.axml" />
     <AndroidResource Include="Resources\values\Dimens.xml" />
+    <AndroidResource Include="Resources\values\Styles.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
