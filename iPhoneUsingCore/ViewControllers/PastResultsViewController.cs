@@ -32,6 +32,8 @@ namespace iPhoneUsingCore
 	public class MyTableSource : UITableViewSource
 	{
 		private static NSString identifier = new NSString("cell");
+		private static string fontName = "Courier";
+		private static int fontSize = 12;
 
 		private List<ValidatedJSON> entries;
 
@@ -53,7 +55,7 @@ namespace iPhoneUsingCore
 				cell = new UITableViewCell(UITableViewCellStyle.Default, identifier);
 			}
 			cell.TextLabel.Text = entries[indexPath.Row].AsJSON();
-			cell.TextLabel.Font = UIFont.FromName("Courier", 12);
+			cell.TextLabel.Font = UIFont.FromName(fontName, fontSize);
 			cell.TextLabel.Lines = 100;
 			return cell;
 		}
@@ -62,9 +64,8 @@ namespace iPhoneUsingCore
 		{
 			string json = entries[indexPath.Row].AsJSON();
 			int newlines = json.Split('\n').Length + 1;
-			return ((NSString) json).StringSize(UIFont.FromName("Courier", 12)).Height * newlines;
+			return ((NSString) json).StringSize(UIFont.FromName(fontName, fontSize)).Height * newlines;
 		}
-
 	}
 }
 

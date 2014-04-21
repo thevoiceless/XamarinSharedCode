@@ -24,19 +24,36 @@ namespace iPhoneUsingCore
 			db = DBManager.GetInstance();
 			db.init();
 
-			// Attach delegates to our button outlets
 			this.countButton.TouchUpInside += delegate {
 				countButton.SetTitle(String.Format("{0} clicks!", count++), UIControlState.Normal);
+				_DismissKeyboard();
 			};
 
 			this.networkButton.TouchUpInside += delegate {
 				string enteredJson = this.enterJson.Text;
 				controller.MakeRequest(enteredJson, this);
+				_DismissKeyboard();
 			};
 
 			this.pastResultsButton.TouchUpInside += delegate {
-				// TODO
+				// ViewController transition handled in the storyboard
 			};
+
+			// Couldn't get the gesture detector to work via the storyboard
+			UITapGestureRecognizer tapRecognizer = new UITapGestureRecognizer(DismissKeyboard);
+			tapRecognizer.NumberOfTapsRequired = 1;
+			this.View.AddGestureRecognizer(tapRecognizer);
+		}
+
+		partial void DismissKeyboard (NSObject sender)
+		{
+			_DismissKeyboard();
+		}
+
+		// Want to be able to dismiss the keyboard when pressing the buttons
+		private void _DismissKeyboard()
+		{
+			this.enterJson.ResignFirstResponder();
 		}
 
 		#region NetworkCallbacks
