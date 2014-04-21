@@ -22,8 +22,18 @@ namespace AndroidUsingCore
 
 			ActionBar.SetDisplayHomeAsUpEnabled(true);
 
+			Button clearButton = FindViewById<Button>(Resource.Id.clearButton);
+
+			clearButton.Click += delegate {
+				// TODO:
+				// Clear DB
+				// Disable button
+			};
+
 			DBManager db = DBManager.GetInstance();
-			ListAdapter = new ValidatedJSONAdapter(this, db.GetAll<ValidatedJSON>());
+			List<ValidatedJSON> entries = db.GetAll<ValidatedJSON>();
+			clearButton.Enabled = (entries.Count > 0) ? true : false;
+			ListAdapter = new ValidatedJSONAdapter(this, entries);
 		}
 
 		public override bool OnOptionsItemSelected (IMenuItem item)
