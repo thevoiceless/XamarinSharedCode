@@ -9,6 +9,7 @@
     <RootNamespace>iPhoneUsingCore</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>iPhoneUsingCore</AssemblyName>
+    <newfilesearch>OnLoad</newfilesearch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -94,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Info.plist" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -110,5 +112,11 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="ViewControllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="MainStoryboard.storyboard" />
   </ItemGroup>
 </Project>
