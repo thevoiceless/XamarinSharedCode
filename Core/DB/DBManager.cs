@@ -23,7 +23,7 @@ namespace Core
 
 		private DBManager()
 		{
-			Console.WriteLine("*************** DBManager");
+			Console.WriteLine("*************** DBManager created, should now call init()");
 		}
 
 		public void init()
@@ -59,9 +59,16 @@ namespace Core
 			return db.Table<T>().Count();
 		}
 
+		// Return a list of all objects from the specified table
 		public List<T> GetAll<T>() where T : new()
 		{
 			return new List<T>(db.Table<T>());
+		}
+
+		// Return number of rows deleted
+		public int ClearTable<T>() where T : new()
+		{
+			return db.DeleteAll<T>();
 		}
 	}
 }

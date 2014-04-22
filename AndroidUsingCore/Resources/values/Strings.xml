@@ -15,6 +15,8 @@
 	<string name="past_results">Past results</string>
 	<string name="more_stuff">More stuff</string>
 	<string name="clear_all">Clear all</string>
+	<string name="confirm_delete">Confirm delete</string>
+	<string name="confirm_delete_msg">Are you sure you want to delete all saved results?</string>
 
 </resources>
 	
