@@ -54,18 +54,19 @@ namespace Core
 		{
 			return db.Table<T>().CountAsync();
 		}
-//
-//		// Return a list of all objects from the specified table
-//		public List<T> GetAll<T>() where T : new()
-//		{
-//			return new List<T>(db.Table<T>());
-//		}
-//
-//		// Return number of rows deleted
-//		public int ClearTable<T>() where T : new()
-//		{
-//			return db.DeleteAll<T>();
-//		}
+
+		// Return a list of all objects from the specified table
+		public Task<List<T>> GetAll<T>() where T : new()
+		{
+			return db.Table<T>().ToListAsync();
+		}
+
+		public void ClearTable<T>() where T : new()
+		{
+			db.DropTableAsync<T>().ContinueWith((r) => {
+				db.CreateTableAsync<T>();
+			});
+		}
 	}
 }
 

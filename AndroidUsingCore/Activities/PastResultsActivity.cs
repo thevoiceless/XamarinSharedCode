@@ -15,24 +15,44 @@ namespace AndroidUsingCore
 	[Activity (Label = "@string/past_results")]			
 	public class PastResultsActivity : ListActivity
 	{
+		private View layout;
+		private ProgressBar progressBar;
+		private Button clearButton;
+
+		private DBManager db;
 		private ValidatedJSONAdapter adapter;
 
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.PastResults);
-
 			ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-			Button clearButton = FindViewById<Button>(Resource.Id.clearButton);
+			layout = FindViewById<LinearLayout>(Resource.Id.resultsLayout);
+			progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
+			clearButton = FindViewById<Button>(Resource.Id.clearButton);
 
-			DBManager db = DBManager.GetInstance();
-//			List<ValidatedJSON> entries = db.GetAll<ValidatedJSON>();
-			List<ValidatedJSON> entries = new List<ValidatedJSON>();
-			clearButton.Enabled = (entries.Count > 0) ? true : false;
-			adapter = new ValidatedJSONAdapter(this, entries);
-			ListAdapter = adapter;
+			db = DBManager.GetInstance();
 
+			InitListeners();
+
+			LoadFromDB();
+		}
+
+		public override bool OnOptionsItemSelected (IMenuItem item)
+		{
+			switch (item.ItemId)
+			{
+				case Android.Resource.Id.Home:
+					OnBackPressed();
+					return true;
+			}
+
+			return base.OnOptionsItemSelected(item);
+		}
+
+		private void InitListeners()
+		{
 			clearButton.Click += delegate {
 				AlertDialog.Builder confirm = new AlertDialog.Builder(this);
 
@@ -41,7 +61,8 @@ namespace AndroidUsingCore
 
 				confirm.SetPositiveButton(Android.Resource.String.Ok,
 					delegate(object sender, DialogClickEventArgs e) {
-//						db.ClearTable<ValidatedJSON>();
+						db.ClearTable<ValidatedJSON>();
+
 						clearButton.Enabled = false;
 
 						adapter.Entries = new List<ValidatedJSON>();
@@ -59,16 +80,15 @@ namespace AndroidUsingCore
 			};
 		}
 
-		public override bool OnOptionsItemSelected (IMenuItem item)
+		private async void LoadFromDB()
 		{
-			switch (item.ItemId)
-			{
-				case Android.Resource.Id.Home:
-					OnBackPressed();
-					return true;
-			}
+			List<ValidatedJSON> entries = await db.GetAll<ValidatedJSON>();
+			clearButton.Enabled = (entries.Count > 0) ? true : false;
+			adapter = new ValidatedJSONAdapter(this, entries);
+			ListAdapter = adapter;
 
-			return base.OnOptionsItemSelected(item);
+			progressBar.Visibility = ViewStates.Gone;
+			layout.Visibility = ViewStates.Visible;
 		}
 	}
 

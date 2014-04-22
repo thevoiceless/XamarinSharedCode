@@ -15,6 +15,7 @@ namespace AndroidUsingCore
 		private View layout;
 		private Button countButton, networkButton, pastResultsButton;
 
+		private CoreNetworkController controller;
 		private DBManager db;
 		private int count = 1;
 
@@ -23,27 +24,30 @@ namespace AndroidUsingCore
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.Main);
 
-			CoreNetworkController controller = new CoreNetworkController();
-
 			layout = FindViewById<LinearLayout>(Resource.Id.mainLayout);
-
 			countButton = FindViewById<Button>(Resource.Id.countButton);
+			networkButton = FindViewById<Button>(Resource.Id.networkButton);
+			pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
+
+			controller = new CoreNetworkController();
+
+			InitListeners();
+				
+			InitDB();
+		}
+
+		private void InitListeners()
+		{
 			countButton.Click += delegate {
 				countButton.Text = String.Format("{0} clicks!", count++);
 			};
-
-			networkButton = FindViewById<Button>(Resource.Id.networkButton);
 			networkButton.Click += delegate {
 				string enteredJson = FindViewById<EditText>(Resource.Id.enterJson).Text;
 				controller.MakeRequest(enteredJson, this);
 			};
-
-			pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
 			pastResultsButton.Click += delegate {
-//				StartActivity(typeof(PastResultsActivity));
+				StartActivity(typeof(PastResultsActivity));
 			};
-				
-			InitDB();
 		}
 
 		private async void InitDB()
