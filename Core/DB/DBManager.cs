@@ -34,7 +34,7 @@ namespace Core
 			CreateOrUpdateTables();
 		}
 
-		public void close()
+		public void Close()
 		{
 			if (db != null)
 			{

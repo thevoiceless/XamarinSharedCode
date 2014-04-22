@@ -34,8 +34,10 @@ namespace AndroidUsingCore
 
 			clearButton.Click += delegate {
 				AlertDialog.Builder confirm = new AlertDialog.Builder(this);
+
 				confirm.SetTitle(Resource.String.confirm_delete);
 				confirm.SetMessage(Resource.String.confirm_delete_msg);
+
 				confirm.SetPositiveButton(Android.Resource.String.Ok,
 					delegate(object sender, DialogClickEventArgs e) {
 						db.ClearTable<ValidatedJSON>();
@@ -46,10 +48,12 @@ namespace AndroidUsingCore
 
 						((AlertDialog) sender).Dismiss();
 					});
+
 				confirm.SetNegativeButton(Android.Resource.String.Cancel,
 					delegate(object sender, DialogClickEventArgs e) {
 						((AlertDialog) sender).Dismiss();
 					});
+
 				confirm.Show();
 			};
 		}
