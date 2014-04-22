@@ -108,7 +108,11 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jqC-aX-iWV">
+                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="rFc-6a-y1z">
+                                <rect key="frame" x="142" y="234" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jqC-aX-iWV">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </tableView>
@@ -116,14 +120,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="jqC-aX-iWV" firstAttribute="top" secondItem="08V-qz-pdQ" secondAttribute="bottom" id="0y9-My-T4h"/>
+                            <constraint firstAttribute="centerX" secondItem="rFc-6a-y1z" secondAttribute="centerX" id="JlO-uO-bPO"/>
                             <constraint firstItem="jqC-aX-iWV" firstAttribute="leading" secondItem="AiF-PF-JIK" secondAttribute="leading" id="KLO-wU-8Tm"/>
                             <constraint firstItem="MCh-54-8Hl" firstAttribute="top" secondItem="jqC-aX-iWV" secondAttribute="bottom" id="VEf-8M-m5t"/>
+                            <constraint firstAttribute="centerY" secondItem="rFc-6a-y1z" secondAttribute="centerY" id="ijk-dT-1Ja"/>
                             <constraint firstAttribute="trailing" secondItem="jqC-aX-iWV" secondAttribute="trailing" id="tvw-bi-uTv"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Past results" id="5ja-y0-S4S"/>
                     <connections>
+                        <outlet property="loadingSpinner" destination="rFc-6a-y1z" id="c2d-Oe-O51"/>
                         <outlet property="pastResultsList" destination="jqC-aX-iWV" id="gge-vG-Zqt"/>
                     </connections>
                 </viewController>

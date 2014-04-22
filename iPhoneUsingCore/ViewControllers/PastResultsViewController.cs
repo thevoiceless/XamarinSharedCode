@@ -9,20 +9,35 @@ namespace iPhoneUsingCore
 {
 	public partial class PastResultsViewController : UIViewController
 	{
+		private DBManager db;
+
 		public PastResultsViewController (IntPtr handle) : base (handle)
 		{
-			Console.WriteLine("********************** PastResultsViewController");
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
-			DBManager db = DBManager.GetInstance();
-			this.pastResultsList.Source = new MyTableSource(db.GetAll<ValidatedJSON>());
+			db = DBManager.GetInstance();
+
+			LoadFromDB();
+		}
+
+		private async void LoadFromDB()
+		{
+			this.loadingSpinner.Center = this.View.Center;
+			this.loadingSpinner.Layer.CornerRadius = 3F;
+			this.loadingSpinner.BackgroundColor = UIColor.Black.ColorWithAlpha(0.5F);
+
+			List<ValidatedJSON> entries = await db.GetAll<ValidatedJSON>();
+			this.pastResultsList.Source = new MyTableSource(entries);
+
+			this.pastResultsList.ReloadData();
+			this.loadingSpinner.Hidden = true;
+			this.pastResultsList.Hidden = false;
 		}
 	}
-
 
 	/*
 	 * If you are looking at Objective-C code or documentation, be aware that Xamarin.iOS aggregates

@@ -8,10 +8,12 @@ namespace iPhoneUsingCore
 {
 	public partial class iPhoneUsingCoreViewController : UIViewController, NetworkCallbacks
 	{
+		private CoreNetworkController controller;
 		private DBManager db;
+
 		private int count = 1;
 
-		public iPhoneUsingCoreViewController (IntPtr handle) : base (handle)
+		public iPhoneUsingCoreViewController(IntPtr handle) : base (handle)
 		{
 		}
 
@@ -19,11 +21,31 @@ namespace iPhoneUsingCore
 		{
 			base.ViewDidLoad ();
 
-			// Stuff from Core
-			CoreNetworkController controller = new CoreNetworkController();
-			db = DBManager.GetInstance();
-			db.init();
+			InitDB();
 
+			controller = new CoreNetworkController();
+
+			InitOutlets();
+
+			// Couldn't get the gesture detector to work via the storyboard
+			UITapGestureRecognizer tapRecognizer = new UITapGestureRecognizer(DismissKeyboard);
+			tapRecognizer.NumberOfTapsRequired = 1;
+			this.View.AddGestureRecognizer(tapRecognizer);
+		}
+
+		partial void DismissKeyboard(NSObject sender)
+		{
+			_DismissKeyboard();
+		}
+
+		// Want to dismiss the keyboard when pressing the buttons or tapping elsewhere
+		private void _DismissKeyboard()
+		{
+			this.enterJson.ResignFirstResponder();
+		}
+
+		private void InitOutlets()
+		{
 			this.countButton.TouchUpInside += delegate {
 				countButton.SetTitle(String.Format("{0} clicks!", count++), UIControlState.Normal);
 				_DismissKeyboard();
@@ -38,30 +60,24 @@ namespace iPhoneUsingCore
 			this.pastResultsButton.TouchUpInside += delegate {
 				// ViewController transition handled in the storyboard
 			};
-
-			// Couldn't get the gesture detector to work via the storyboard
-			UITapGestureRecognizer tapRecognizer = new UITapGestureRecognizer(DismissKeyboard);
-			tapRecognizer.NumberOfTapsRequired = 1;
-			this.View.AddGestureRecognizer(tapRecognizer);
 		}
 
-		partial void DismissKeyboard (NSObject sender)
+		private async void InitDB()
 		{
-			_DismissKeyboard();
-		}
-
-		// Want to be able to dismiss the keyboard when pressing the buttons
-		private void _DismissKeyboard()
-		{
-			this.enterJson.ResignFirstResponder();
+			db = DBManager.GetInstance();
+			// There's nothing preventing the user from interacting with the UI before this finishes
+			await db.Init();
 		}
 
 		#region NetworkCallbacks
 
-		void NetworkCallbacks.OnSuccess(Object data)
+		async void NetworkCallbacks.OnSuccess(Object data)
 		{
 			string json = (string) data;
 			ValidatedJSON jsonObj = ValidatedJSON.CreateObject(json);
+
+			await db.Insert<ValidatedJSON>(jsonObj);
+			Console.WriteLine("*********** {0} rows now in table", await db.GetRowCountForTable<ValidatedJSON>());
 
 			if (jsonObj.IsValid())
 			{
@@ -71,9 +87,6 @@ namespace iPhoneUsingCore
 			{
 				this.jsonResult.Text = jsonObj.error;
 			}
-
-			db.Insert<ValidatedJSON>(jsonObj);
-			Console.WriteLine("*********** {0} rows now in table", db.GetRowCountForTable<ValidatedJSON>());
 		}
 
 		void NetworkCallbacks.OnFail()
