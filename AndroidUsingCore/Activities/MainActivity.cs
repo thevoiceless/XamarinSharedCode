@@ -12,6 +12,9 @@ namespace AndroidUsingCore
 	[Activity (Label = "@string/app_name", MainLauncher = true)]
 	public class MainActivity : Activity, NetworkCallbacks
 	{
+		private View layout;
+		private Button countButton, networkButton, pastResultsButton;
+
 		private DBManager db;
 		private int count = 1;
 
@@ -20,39 +23,46 @@ namespace AndroidUsingCore
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.Main);
 
-			// Stuff from Core
 			CoreNetworkController controller = new CoreNetworkController();
-			db = DBManager.GetInstance();
-			db.init();
 
-			Button countButton = FindViewById<Button>(Resource.Id.countButton);
+			layout = FindViewById<LinearLayout>(Resource.Id.mainLayout);
+
+			countButton = FindViewById<Button>(Resource.Id.countButton);
 			countButton.Click += delegate {
 				countButton.Text = String.Format("{0} clicks!", count++);
 			};
 
-			Button networkButton = FindViewById<Button>(Resource.Id.networkButton);
+			networkButton = FindViewById<Button>(Resource.Id.networkButton);
 			networkButton.Click += delegate {
 				string enteredJson = FindViewById<EditText>(Resource.Id.enterJson).Text;
 				controller.MakeRequest(enteredJson, this);
 			};
 
-			Button pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
+			pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
 			pastResultsButton.Click += delegate {
-				StartActivity(typeof(PastResultsActivity));
+//				StartActivity(typeof(PastResultsActivity));
 			};
+				
+			InitDB();
+		}
 
-//			Button moreStuffButton = FindViewById<Button>(Resource.Id.moreStuffButton);
-//			moreStuffButton.Click += delegate {
-//				StartActivity(typeof(MoreStuffActivity));
-//			};
+		private async void InitDB()
+		{
+			db = DBManager.GetInstance();
+			await db.Init();
+
+			layout.Visibility = ViewStates.Visible;
 		}
 
 		#region NetworkCallbacks
 
-		void NetworkCallbacks.OnSuccess(Object data)
+		async void NetworkCallbacks.OnSuccess(Object data)
 		{
 			string json = (string) data;
 			ValidatedJSON jsonObj = ValidatedJSON.CreateObject(json);
+
+			await db.Insert<ValidatedJSON>(jsonObj);
+			Console.WriteLine("*********** {0} rows now in table", await db.GetRowCountForTable<ValidatedJSON>());
 
 			EditText resultBox = FindViewById<EditText>(Resource.Id.jsonResult);
 			if (jsonObj.IsValid())
@@ -63,9 +73,6 @@ namespace AndroidUsingCore
 			{
 				resultBox.Text = jsonObj.error;
 			}
-
-			db.Insert<ValidatedJSON>(jsonObj);
-			Console.WriteLine("*********** {0} rows now in table", db.GetRowCountForTable<ValidatedJSON>());
 		}
 
 		void NetworkCallbacks.OnFail()

@@ -1,16 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SQLite;
 
 namespace Core
 {
 	public class DBManager
 	{
-		private const string DB_NAME = "test.db";
+		private static string DB_NAME = "test.db";
+		private static Type[] TABLES = new Type[] {
+			typeof(ValidatedJSON)
+		};
 
 		private static DBManager instance;
-		private static SQLiteConnection db;
+		private static SQLiteAsyncConnection db;
 
 		public static DBManager GetInstance()
 		{
@@ -26,50 +30,42 @@ namespace Core
 			Console.WriteLine("*************** DBManager created, should now call init()");
 		}
 
-		public void init()
+		public Task Init()
 		{
 			string folder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-			db = new SQLiteConnection(Path.Combine(folder, DB_NAME));
+			db = new SQLiteAsyncConnection(Path.Combine(folder, DB_NAME));
 
-			CreateOrUpdateTables();
-		}
-
-		public void Close()
-		{
-			if (db != null)
-			{
-				db.Close();
-			}
+			return CreateOrUpdateTables();
 		}
 
 		// Create or update tables based on object annotations
-		private void CreateOrUpdateTables()
+		private Task CreateOrUpdateTables()
 		{
-			db.CreateTable<ValidatedJSON>();
+			return db.CreateTablesAsync(TABLES);
 		}
 
 		// Return number of rows affected by the operation
-		public int Insert<T>(T obj) where T : new()
+		public Task<int> Insert<T>(T obj) where T : new()
 		{
-			return db.Insert(obj);
+			return db.InsertAsync(obj);
 		}
 
-		public int GetRowCountForTable<T>() where T : new()
+		public Task<int> GetRowCountForTable<T>() where T : new()
 		{
-			return db.Table<T>().Count();
+			return db.Table<T>().CountAsync();
 		}
-
-		// Return a list of all objects from the specified table
-		public List<T> GetAll<T>() where T : new()
-		{
-			return new List<T>(db.Table<T>());
-		}
-
-		// Return number of rows deleted
-		public int ClearTable<T>() where T : new()
-		{
-			return db.DeleteAll<T>();
-		}
+//
+//		// Return a list of all objects from the specified table
+//		public List<T> GetAll<T>() where T : new()
+//		{
+//			return new List<T>(db.Table<T>());
+//		}
+//
+//		// Return number of rows deleted
+//		public int ClearTable<T>() where T : new()
+//		{
+//			return db.DeleteAll<T>();
+//		}
 	}
 }
 

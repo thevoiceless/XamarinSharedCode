@@ -27,7 +27,8 @@ namespace AndroidUsingCore
 			Button clearButton = FindViewById<Button>(Resource.Id.clearButton);
 
 			DBManager db = DBManager.GetInstance();
-			List<ValidatedJSON> entries = db.GetAll<ValidatedJSON>();
+//			List<ValidatedJSON> entries = db.GetAll<ValidatedJSON>();
+			List<ValidatedJSON> entries = new List<ValidatedJSON>();
 			clearButton.Enabled = (entries.Count > 0) ? true : false;
 			adapter = new ValidatedJSONAdapter(this, entries);
 			ListAdapter = adapter;
@@ -40,7 +41,7 @@ namespace AndroidUsingCore
 
 				confirm.SetPositiveButton(Android.Resource.String.Ok,
 					delegate(object sender, DialogClickEventArgs e) {
-						db.ClearTable<ValidatedJSON>();
+//						db.ClearTable<ValidatedJSON>();
 						clearButton.Enabled = false;
 
 						adapter.Entries = new List<ValidatedJSON>();
