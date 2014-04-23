@@ -17,6 +17,8 @@
 	<string name="clear_all">Clear all</string>
 	<string name="confirm_delete">Confirm delete</string>
 	<string name="confirm_delete_msg">Are you sure you want to delete all saved results?</string>
+	<string name="get_location">Get location</string>
+	<string name="location_info">Location info</string>
 
 </resources>
 	

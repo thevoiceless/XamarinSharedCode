@@ -4,6 +4,7 @@ obj
 **/debug
 *.userprefs
 *.designer.cs
+**/samples
 
 build/
 *.pbxuser
