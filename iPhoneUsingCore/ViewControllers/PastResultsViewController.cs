@@ -21,7 +21,28 @@ namespace iPhoneUsingCore
 
 			db = DBManager.GetInstance();
 
+			InitOutlets();
+
 			LoadFromDB();
+		}
+
+		private void InitOutlets()
+		{
+
+			this.clearButton.TouchUpInside += delegate {
+				UIAlertView confirm = new UIAlertView("Confirm delete", "Are you sure you want to delete all saved results?", null, "OK", new string[] { "Cancel" });
+
+				confirm.Clicked += (object sender, UIButtonEventArgs e) => {
+					if (e.ButtonIndex == 0)
+					{
+						db.ClearTable<ValidatedJSON>();
+
+						UpdateUI(new List<ValidatedJSON>());
+					}
+				};
+
+				confirm.Show();
+			};
 		}
 
 		private async void LoadFromDB()
@@ -31,11 +52,28 @@ namespace iPhoneUsingCore
 			this.loadingSpinner.BackgroundColor = UIColor.Black.ColorWithAlpha(0.5F);
 
 			List<ValidatedJSON> entries = await db.GetAll<ValidatedJSON>();
-			this.pastResultsList.Source = new MyTableSource(entries);
+			UpdateUI(entries);
+		}
 
-			this.pastResultsList.ReloadData();
-			this.loadingSpinner.Hidden = true;
-			this.pastResultsList.Hidden = false;
+		private void UpdateUI(List<ValidatedJSON> entries)
+		{
+			this.loadingSpinner.StopAnimating();
+
+			if (entries.Count > 0)
+			{
+				this.clearButton.Enabled = true;
+
+				this.pastResultsList.Source = new MyTableSource(entries);
+				this.pastResultsList.ReloadData();
+
+				this.loadingSpinner.Hidden = true;
+				this.pastResultsList.Hidden = false;
+			}
+			else
+			{
+				this.clearButton.Enabled = false;
+				this.pastResultsList.Hidden = true;
+			}
 		}
 	}
 
@@ -50,16 +88,16 @@ namespace iPhoneUsingCore
 		private static string fontName = "Courier";
 		private static int fontSize = 12;
 
-		private List<ValidatedJSON> entries;
+		public List<ValidatedJSON> Entries { private get; set; }
 
 		public MyTableSource(List<ValidatedJSON> vals)
 		{
-			entries = vals;
+			Entries = vals;
 		}
 
 		public override int RowsInSection (UITableView tableview, int section)
 		{
-			return entries.Count;
+			return Entries.Count;
 		}
 
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
@@ -69,7 +107,7 @@ namespace iPhoneUsingCore
 			{
 				cell = new UITableViewCell(UITableViewCellStyle.Default, identifier);
 			}
-			cell.TextLabel.Text = entries[indexPath.Row].AsJSON();
+			cell.TextLabel.Text = Entries[indexPath.Row].AsJSON();
 			cell.TextLabel.Font = UIFont.FromName(fontName, fontSize);
 			cell.TextLabel.Lines = 100;
 			return cell;
@@ -77,7 +115,7 @@ namespace iPhoneUsingCore
 
 		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 		{
-			string json = entries[indexPath.Row].AsJSON();
+			string json = Entries[indexPath.Row].AsJSON();
 			int newlines = json.Split('\n').Length + 1;
 			return ((NSString) json).StringSize(UIFont.FromName(fontName, fontSize)).Height * newlines;
 		}

@@ -108,28 +108,41 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exp-ow-Xib">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Clear all">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                             <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="rFc-6a-y1z">
                                 <rect key="frame" x="142" y="234" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jqC-aX-iWV">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="30" width="320" height="474"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jqC-aX-iWV" firstAttribute="top" secondItem="08V-qz-pdQ" secondAttribute="bottom" id="0y9-My-T4h"/>
+                            <constraint firstItem="jqC-aX-iWV" firstAttribute="top" secondItem="exp-ow-Xib" secondAttribute="bottom" id="Ago-vk-fch"/>
+                            <constraint firstAttribute="trailing" secondItem="exp-ow-Xib" secondAttribute="trailing" id="Dbq-u2-hEm"/>
                             <constraint firstAttribute="centerX" secondItem="rFc-6a-y1z" secondAttribute="centerX" id="JlO-uO-bPO"/>
                             <constraint firstItem="jqC-aX-iWV" firstAttribute="leading" secondItem="AiF-PF-JIK" secondAttribute="leading" id="KLO-wU-8Tm"/>
                             <constraint firstItem="MCh-54-8Hl" firstAttribute="top" secondItem="jqC-aX-iWV" secondAttribute="bottom" id="VEf-8M-m5t"/>
+                            <constraint firstItem="exp-ow-Xib" firstAttribute="top" secondItem="08V-qz-pdQ" secondAttribute="bottom" id="Wa8-Ib-0zW"/>
                             <constraint firstAttribute="centerY" secondItem="rFc-6a-y1z" secondAttribute="centerY" id="ijk-dT-1Ja"/>
                             <constraint firstAttribute="trailing" secondItem="jqC-aX-iWV" secondAttribute="trailing" id="tvw-bi-uTv"/>
+                            <constraint firstItem="exp-ow-Xib" firstAttribute="leading" secondItem="AiF-PF-JIK" secondAttribute="leading" id="xPt-4f-bEw"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Past results" id="5ja-y0-S4S"/>
                     <connections>
+                        <outlet property="clearButton" destination="exp-ow-Xib" id="CKZ-A4-RWo"/>
                         <outlet property="loadingSpinner" destination="rFc-6a-y1z" id="c2d-Oe-O51"/>
                         <outlet property="pastResultsList" destination="jqC-aX-iWV" id="gge-vG-Zqt"/>
                     </connections>
