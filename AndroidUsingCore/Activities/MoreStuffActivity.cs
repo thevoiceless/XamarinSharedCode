@@ -14,9 +14,9 @@ namespace AndroidUsingCore
 	[Activity (Label = "@string/more_stuff")]			
 	public class MoreStuffActivity : Activity
 	{
-		protected override void OnCreate(Bundle bundle)
+		protected override void OnCreate(Bundle savedInstanceState)
 		{
-			base.OnCreate(bundle);
+			base.OnCreate(savedInstanceState);
 			SetContentView(Resource.Layout.MoreStuff);
 			ActionBar.SetDisplayHomeAsUpEnabled(true);
 		}

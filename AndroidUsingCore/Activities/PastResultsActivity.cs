@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Core;
@@ -15,16 +11,16 @@ namespace AndroidUsingCore
 	[Activity (Label = "@string/past_results")]			
 	public class PastResultsActivity : ListActivity
 	{
-		private View layout;
-		private ProgressBar progressBar;
-		private Button clearButton;
+		View layout;
+		ProgressBar progressBar;
+		Button clearButton;
 
-		private DBManager db;
-		private ValidatedJSONAdapter adapter;
+		DBManager db;
+		ValidatedJSONAdapter adapter;
 
-		protected override void OnCreate(Bundle bundle)
+		protected override void OnCreate(Bundle savedInstanceState)
 		{
-			base.OnCreate(bundle);
+			base.OnCreate(savedInstanceState);
 			SetContentView(Resource.Layout.PastResults);
 			ActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -51,7 +47,7 @@ namespace AndroidUsingCore
 			return base.OnOptionsItemSelected(item);
 		}
 
-		private void InitListeners()
+		void InitListeners()
 		{
 			clearButton.Click += delegate {
 				AlertDialog.Builder confirm = new AlertDialog.Builder(this);
@@ -80,7 +76,7 @@ namespace AndroidUsingCore
 			};
 		}
 
-		private async void LoadFromDB()
+		async void LoadFromDB()
 		{
 			List<ValidatedJSON> entries = await db.GetAll<ValidatedJSON>();
 			clearButton.Enabled = (entries.Count > 0) ? true : false;
@@ -94,7 +90,7 @@ namespace AndroidUsingCore
 
 	class ValidatedJSONAdapter : BaseAdapter
 	{
-		private Context context;
+		Context context;
 		public List<ValidatedJSON> Entries { get; set; }
 
 		public ValidatedJSONAdapter(Context ctx, List<ValidatedJSON> vals)

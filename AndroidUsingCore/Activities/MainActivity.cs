@@ -1,7 +1,5 @@
 ﻿using System;
 using Android.App;
-using Android.Content;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
@@ -12,16 +10,16 @@ namespace AndroidUsingCore
 	[Activity (Label = "@string/app_name", MainLauncher = true)]
 	public class MainActivity : Activity, NetworkCallbacks
 	{
-		private View layout;
-		private Button countButton, networkButton, pastResultsButton, moreStuffButton;
+		View layout;
+		Button countButton, networkButton, pastResultsButton, moreStuffButton;
 
-		private CoreNetworkController controller;
-		private DBManager db;
-		private int count = 1;
+		CoreNetworkController controller;
+		DBManager db;
+		int count = 1;
 
-		protected override void OnCreate(Bundle bundle)
+		protected override void OnCreate(Bundle savedInstanceState)
 		{
-			base.OnCreate(bundle);
+			base.OnCreate(savedInstanceState);
 			SetContentView(Resource.Layout.Main);
 
 			layout = FindViewById<LinearLayout>(Resource.Id.mainLayout);
@@ -37,7 +35,7 @@ namespace AndroidUsingCore
 			InitDB();
 		}
 
-		private void InitListeners()
+		void InitListeners()
 		{
 			countButton.Click += delegate {
 				countButton.Text = String.Format("{0} clicks!", count++);
@@ -54,7 +52,7 @@ namespace AndroidUsingCore
 			};
 		}
 
-		private async void InitDB()
+		async void InitDB()
 		{
 			db = DBManager.GetInstance();
 			await db.Init();
@@ -73,14 +71,7 @@ namespace AndroidUsingCore
 			Console.WriteLine("*********** {0} rows now in table", await db.GetRowCountForTable<ValidatedJSON>());
 
 			EditText resultBox = FindViewById<EditText>(Resource.Id.jsonResult);
-			if (jsonObj.IsValid())
-			{
-				resultBox.Text = GetString(Resource.String.valid);
-			}
-			else
-			{
-				resultBox.Text = jsonObj.error;
-			}
+			resultBox.Text = jsonObj.IsValid() ? GetString(Resource.String.valid) : jsonObj.error;
 		}
 
 		void NetworkCallbacks.OnFail()
