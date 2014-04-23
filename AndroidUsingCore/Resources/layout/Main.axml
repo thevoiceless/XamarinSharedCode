@@ -41,5 +41,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_past_results" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/moreStuffButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/more_stuff" />
     </LinearLayout>
 </FrameLayout>

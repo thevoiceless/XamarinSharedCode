@@ -13,7 +13,7 @@ namespace AndroidUsingCore
 	public class MainActivity : Activity, NetworkCallbacks
 	{
 		private View layout;
-		private Button countButton, networkButton, pastResultsButton;
+		private Button countButton, networkButton, pastResultsButton, moreStuffButton;
 
 		private CoreNetworkController controller;
 		private DBManager db;
@@ -28,6 +28,7 @@ namespace AndroidUsingCore
 			countButton = FindViewById<Button>(Resource.Id.countButton);
 			networkButton = FindViewById<Button>(Resource.Id.networkButton);
 			pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
+			moreStuffButton = FindViewById<Button>(Resource.Id.moreStuffButton);
 
 			controller = new CoreNetworkController();
 
@@ -47,6 +48,9 @@ namespace AndroidUsingCore
 			};
 			pastResultsButton.Click += delegate {
 				StartActivity(typeof(PastResultsActivity));
+			};
+			moreStuffButton.Click += delegate {
+				StartActivity(typeof(MoreStuffActivity));
 			};
 		}
 
