@@ -8,13 +8,13 @@ namespace Core
 {
 	public class DBManager
 	{
-		private static string DB_NAME = "test.db";
-		private static Type[] TABLES = new Type[] {
+		const string DB_NAME = "test.db";
+		static Type[] TABLES = {
 			typeof(ValidatedJSON)
 		};
 
-		private static DBManager instance;
-		private static SQLiteAsyncConnection db;
+		static DBManager instance;
+		static SQLiteAsyncConnection db;
 
 		public static DBManager GetInstance()
 		{
@@ -25,9 +25,9 @@ namespace Core
 			return instance;
 		}
 
-		private DBManager()
+		DBManager()
 		{
-			Console.WriteLine("*************** DBManager created, should now call init()");
+			Console.WriteLine("*************** DBManager created, should now call Init()");
 		}
 
 		public Task Init()
@@ -39,7 +39,7 @@ namespace Core
 		}
 
 		// Create or update tables based on object annotations
-		private Task CreateOrUpdateTables()
+		Task CreateOrUpdateTables()
 		{
 			return db.CreateTablesAsync(TABLES);
 		}

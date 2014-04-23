@@ -26,11 +26,7 @@ namespace Core
 					}
 				});
 
-			return (resultObj == null) ? new ValidatedJSON() : resultObj;
-		}
-
-		public ValidatedJSON()
-		{
+			return resultObj ?? new ValidatedJSON ();
 		}
 
 		public bool IsValid()

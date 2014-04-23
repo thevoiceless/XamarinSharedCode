@@ -9,12 +9,15 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Xamarin.Geolocation;
+using Core;
 
 namespace AndroidUsingCore
 {
 	[Activity (Label = "@string/more_stuff")]			
-	public class MoreStuffActivity : Activity
+	public class MoreStuffActivity : Activity, NetworkCallbacks
 	{
+		CoreNetworkController controller;
+
 		Button locationButton;
 		EditText locationInfo;
 
@@ -26,6 +29,8 @@ namespace AndroidUsingCore
 
 			locationButton = FindViewById<Button>(Resource.Id.locationButton);
 			locationInfo = FindViewById<EditText>(Resource.Id.locationInfo);
+
+			controller = CoreNetworkController.GetInstance();
 
 			InitListeners();
 		}
@@ -51,8 +56,24 @@ namespace AndroidUsingCore
 					position.Latitude, position.Longitude, position.Heading, position.Speed, position.Altitude, position.AltitudeAccuracy, position.Accuracy);
 				locationInfo.Text = info;
 				Console.WriteLine(info);
+
+				controller.GetAreaCode(this, position.Latitude, position.Longitude);
 			};
 		}
+
+		#region NetworkCallbacks
+
+		void NetworkCallbacks.OnSuccess(Object data)
+		{
+
+		}
+
+		void NetworkCallbacks.OnFail()
+		{
+			Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
+		}
+
+		#endregion
 	}
 }
 

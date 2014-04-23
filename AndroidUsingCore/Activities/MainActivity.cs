@@ -28,7 +28,7 @@ namespace AndroidUsingCore
 			pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
 			moreStuffButton = FindViewById<Button>(Resource.Id.moreStuffButton);
 
-			controller = new CoreNetworkController();
+			controller = CoreNetworkController.GetInstance();
 
 			InitListeners();
 				
@@ -42,7 +42,7 @@ namespace AndroidUsingCore
 			};
 			networkButton.Click += delegate {
 				string enteredJson = FindViewById<EditText>(Resource.Id.enterJson).Text;
-				controller.ValidateJSON(enteredJson, this);
+				controller.ValidateJSON(this, enteredJson);
 			};
 			pastResultsButton.Click += delegate {
 				StartActivity(typeof(PastResultsActivity));

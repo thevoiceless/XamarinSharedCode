@@ -53,7 +53,7 @@ namespace iPhoneUsingCore
 
 			this.networkButton.TouchUpInside += delegate {
 				string enteredJson = this.enterJson.Text;
-				controller.ValidateJSON(enteredJson, this);
+				controller.ValidateJSON(this, enteredJson);
 				_DismissKeyboard();
 			};
 
