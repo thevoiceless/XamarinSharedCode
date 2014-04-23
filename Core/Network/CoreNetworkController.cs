@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Core
 {
@@ -14,14 +12,10 @@ namespace Core
 
 	public class CoreNetworkController
 	{
-		private static string url = "http://validate.jsontest.com/?json={0}";
-		private static string badurl = "http://bad.jsontest.com/?json={0}";
+		const string url = "http://validate.jsontest.com/?json={0}";
+		const string badurl = "http://bad.jsontest.com/?json={0}";
 
-		public CoreNetworkController()
-		{
-		}
-
-		public async void MakeRequest(string jsonText, NetworkCallbacks callbacks)
+		public async void ValidateJSON(string jsonText, NetworkCallbacks callbacks)
 		{
 			string requestUrl = String.Format(url, jsonText);
 			Console.WriteLine("URL is {0}", requestUrl);

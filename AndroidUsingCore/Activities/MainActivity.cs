@@ -42,7 +42,7 @@ namespace AndroidUsingCore
 			};
 			networkButton.Click += delegate {
 				string enteredJson = FindViewById<EditText>(Resource.Id.enterJson).Text;
-				controller.MakeRequest(enteredJson, this);
+				controller.ValidateJSON(enteredJson, this);
 			};
 			pastResultsButton.Click += delegate {
 				StartActivity(typeof(PastResultsActivity));
