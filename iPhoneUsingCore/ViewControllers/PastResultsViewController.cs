@@ -72,6 +72,8 @@ namespace iPhoneUsingCore
 			else
 			{
 				this.clearButton.Enabled = false;
+				this.clearButton.BackgroundColor = UIColor.LightGray;
+				this.clearButton.SetTitleColor(UIColor.DarkGray, UIControlState.Disabled);
 				this.pastResultsList.Hidden = true;
 			}
 		}
