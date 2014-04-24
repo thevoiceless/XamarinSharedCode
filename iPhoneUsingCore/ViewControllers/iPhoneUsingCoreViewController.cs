@@ -20,6 +20,8 @@ namespace iPhoneUsingCore
 		{
 			base.ViewDidLoad ();
 
+			NavigationItem.BackBarButtonItem = new UIBarButtonItem("Back", UIBarButtonItemStyle.Plain, null);
+
 			InitDB();
 
 			controller = CoreNetworkController.GetInstance();
@@ -51,6 +53,7 @@ namespace iPhoneUsingCore
 			};
 
 			networkButton.TouchUpInside += delegate {
+				jsonResult.Text = "Validating...";
 				string enteredJson = this.enterJson.Text;
 				controller.ValidateJSON(this, enteredJson);
 				_DismissKeyboard();

@@ -111,6 +111,10 @@ namespace iPhoneUsingCore
 			cell.TextLabel.Text = Entries[indexPath.Row].AsJSON();
 			cell.TextLabel.Font = UIFont.FromName(fontName, fontSize);
 			cell.TextLabel.Lines = 100;
+
+			cell.TextLabel.BackgroundColor = UIColor.Clear;
+			cell.ContentView.BackgroundColor = UIColor.Clear;
+
 			return cell;
 		}
 

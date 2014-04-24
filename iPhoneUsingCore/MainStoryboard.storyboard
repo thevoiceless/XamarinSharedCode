@@ -181,9 +181,12 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exp-ow-Xib">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Uvf-B1-J8Y"/>
+                                </constraints>
                                 <state key="normal" title="Clear all">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -194,7 +197,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jqC-aX-iWV">
-                                <rect key="frame" x="0.0" y="30" width="320" height="474"/>
+                                <rect key="frame" x="0.0" y="45" width="320" height="459"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </tableView>
                         </subviews>
@@ -212,7 +215,9 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Past results" id="5ja-y0-S4S"/>
+                    <navigationItem key="navigationItem" title="Past results" id="5ja-y0-S4S">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="n9E-3G-7Pk"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="clearButton" destination="exp-ow-Xib" id="CKZ-A4-RWo"/>
                         <outlet property="loadingSpinner" destination="rFc-6a-y1z" id="c2d-Oe-O51"/>
@@ -263,7 +268,9 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="More stuff" id="vCA-Q6-pjz"/>
+                    <navigationItem key="navigationItem" title="More stuff" id="vCA-Q6-pjz">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Wao-FH-5qT"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="areaCodeInfo" destination="0fC-fS-Oa8" id="nce-xe-tl7"/>
                         <outlet property="locationButton" destination="8i3-hE-4n9" id="XFO-oA-S5N"/>

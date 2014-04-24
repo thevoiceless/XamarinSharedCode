@@ -18,7 +18,7 @@ namespace iPhoneUsingCore
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
+
 			controller = CoreNetworkController.GetInstance();
 
 			InitOutlets();
