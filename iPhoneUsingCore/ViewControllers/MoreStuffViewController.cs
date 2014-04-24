@@ -36,9 +36,9 @@ namespace iPhoneUsingCore
 				areaCodeInfo.Hidden = true;
 
 				var locator = new Geolocator { DesiredAccuracy = 30 };
-				locationButton.Enabled = false;
+				DisableLocationButton();
 				Position position = await locator.GetPositionAsync(10000);
-				locationButton.Enabled = true;
+				EnableLocationButton();
 
 				string info = string.Format("Latitude: {0}\nLongitude: {1}\nHeading: {2}\nSpeed: {3}\nAltitude: {4}\nAlt. Accuracy: {5}\nOverall Accuracy: {6}",
 					position.Latitude, position.Longitude, position.Heading, position.Speed, position.Altitude, position.AltitudeAccuracy, position.Accuracy);
@@ -49,6 +49,18 @@ namespace iPhoneUsingCore
 				areaCodeInfo.Hidden = false;
 				controller.GetAreaCode(this, position.Latitude, position.Longitude);
 			};
+		}
+
+		void DisableLocationButton()
+		{
+			locationButton.Enabled = false;
+			locationButton.Alpha = 0.5F;
+		}
+
+		void EnableLocationButton()
+		{
+			locationButton.Enabled = true;
+			locationButton.Alpha = 1.0F;
 		}
 
 		#region NetworkCallbacks
