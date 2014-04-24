@@ -11,6 +11,7 @@ namespace AndroidUsingCore
 	public class MainActivity : Activity, NetworkCallbacks
 	{
 		View layout;
+		EditText enterJson, jsonResult;
 		Button countButton, networkButton, pastResultsButton, moreStuffButton;
 
 		CoreNetworkController controller;
@@ -24,7 +25,9 @@ namespace AndroidUsingCore
 
 			layout = FindViewById<LinearLayout>(Resource.Id.mainLayout);
 			countButton = FindViewById<Button>(Resource.Id.countButton);
+			enterJson = FindViewById<EditText>(Resource.Id.enterJson);
 			networkButton = FindViewById<Button>(Resource.Id.networkButton);
+			jsonResult = FindViewById<EditText>(Resource.Id.jsonResult);
 			pastResultsButton = FindViewById<Button>(Resource.Id.pastResultsButton);
 			moreStuffButton = FindViewById<Button>(Resource.Id.moreStuffButton);
 
@@ -41,7 +44,8 @@ namespace AndroidUsingCore
 				countButton.Text = String.Format("{0} clicks!", count++);
 			};
 			networkButton.Click += delegate {
-				string enteredJson = FindViewById<EditText>(Resource.Id.enterJson).Text;
+				string enteredJson = enterJson.Text;
+				jsonResult.Text = GetString(Resource.String.validating);
 				controller.ValidateJSON(this, enteredJson);
 			};
 			pastResultsButton.Click += delegate {
@@ -70,8 +74,7 @@ namespace AndroidUsingCore
 			await db.Insert<ValidatedJSON>(jsonObj);
 			Console.WriteLine("*********** {0} rows now in table", await db.GetRowCountForTable<ValidatedJSON>());
 
-			EditText resultBox = FindViewById<EditText>(Resource.Id.jsonResult);
-			resultBox.Text = jsonObj.IsValid() ? GetString(Resource.String.valid) : jsonObj.error;
+			jsonResult.Text = jsonObj.IsValid() ? GetString(Resource.String.valid) : jsonObj.error;
 		}
 
 		void NetworkCallbacks.OnFail()

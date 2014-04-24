@@ -5,6 +5,7 @@
 
 	<string name="click_me">Click Me!</string>
 	<string name="network_button">Validate JSON</string>
+	<string name="validating">Validating...</string>
 	<string name="valid">Valid JSON</string>
 	<string name="invalid">Invalid JSON</string>
 	<string name="error">Error</string>
