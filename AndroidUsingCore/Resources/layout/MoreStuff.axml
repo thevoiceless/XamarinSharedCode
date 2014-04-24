@@ -13,12 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:editable="false"
-        android:hint="@string/location_info" />
+        android:focusable="false"
+        android:hint="@string/getting_location_info"
+        android:visibility="gone" />
     <EditText
         android:id="@+id/areaCodeInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:editable="false"
+        android:focusable="false"
+        android:maxLines="8"
         android:hint="@string/loading_area_codes"
+        android:scrollbars="vertical"
         android:visibility="gone" />
 </LinearLayout>

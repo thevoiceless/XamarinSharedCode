@@ -92,6 +92,9 @@
     <Reference Include="Core">
       <HintPath>..\Core\bin\Debug\Core.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Mobile">
+      <HintPath>..\Components\xamarin.mobile-0.7.1\lib\ios\Xamarin.Mobile.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Info.plist" />
@@ -108,6 +111,10 @@
     <Compile Include="ViewControllers\PastResultsViewController.designer.cs">
       <DependentUpon>PastResultsViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\MoreStuffViewController.cs" />
+    <Compile Include="ViewControllers\MoreStuffViewController.designer.cs">
+      <DependentUpon>MoreStuffViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -118,5 +125,12 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="xamarin.mobile">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>0.7.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>

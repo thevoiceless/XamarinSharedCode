@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -9,9 +8,9 @@ namespace iPhoneUsingCore
 {
 	public partial class PastResultsViewController : UIViewController
 	{
-		private DBManager db;
+		DBManager db;
 
-		public PastResultsViewController (IntPtr handle) : base (handle)
+		public PastResultsViewController(IntPtr handle) : base (handle)
 		{
 		}
 
@@ -26,13 +25,13 @@ namespace iPhoneUsingCore
 			LoadFromDB();
 		}
 
-		private void InitOutlets()
+		void InitOutlets()
 		{
 
-			this.clearButton.TouchUpInside += delegate {
+			clearButton.TouchUpInside += delegate {
 				UIAlertView confirm = new UIAlertView("Confirm delete", "Are you sure you want to delete all saved results?", null, "OK", new string[] { "Cancel" });
 
-				confirm.Clicked += (object sender, UIButtonEventArgs e) => {
+				confirm.Clicked += (sender, e) => {
 					if (e.ButtonIndex == 0)
 					{
 						db.ClearTable<ValidatedJSON>();
@@ -45,36 +44,36 @@ namespace iPhoneUsingCore
 			};
 		}
 
-		private async void LoadFromDB()
+		async void LoadFromDB()
 		{
-			this.loadingSpinner.Center = this.View.Center;
-			this.loadingSpinner.Layer.CornerRadius = 3F;
-			this.loadingSpinner.BackgroundColor = UIColor.Black.ColorWithAlpha(0.5F);
+			loadingSpinner.Center = View.Center;
+			loadingSpinner.Layer.CornerRadius = 3F;
+			loadingSpinner.BackgroundColor = UIColor.Black.ColorWithAlpha(0.5F);
 
 			List<ValidatedJSON> entries = await db.GetAll<ValidatedJSON>();
 			UpdateUI(entries);
 		}
 
-		private void UpdateUI(List<ValidatedJSON> entries)
+		void UpdateUI(List<ValidatedJSON> entries)
 		{
-			this.loadingSpinner.StopAnimating();
+			loadingSpinner.StopAnimating();
 
 			if (entries.Count > 0)
 			{
-				this.clearButton.Enabled = true;
+				clearButton.Enabled = true;
 
-				this.pastResultsList.Source = new MyTableSource(entries);
-				this.pastResultsList.ReloadData();
+				pastResultsList.Source = new MyTableSource(entries);
+				pastResultsList.ReloadData();
 
-				this.loadingSpinner.Hidden = true;
-				this.pastResultsList.Hidden = false;
+				loadingSpinner.Hidden = true;
+				pastResultsList.Hidden = false;
 			}
 			else
 			{
-				this.clearButton.Enabled = false;
-				this.clearButton.BackgroundColor = UIColor.LightGray;
-				this.clearButton.SetTitleColor(UIColor.DarkGray, UIControlState.Disabled);
-				this.pastResultsList.Hidden = true;
+				clearButton.Enabled = false;
+				clearButton.BackgroundColor = UIColor.LightGray;
+				clearButton.SetTitleColor(UIColor.DarkGray, UIControlState.Disabled);
+				pastResultsList.Hidden = true;
 			}
 		}
 	}
@@ -86,9 +85,9 @@ namespace iPhoneUsingCore
 	 */
 	public class MyTableSource : UITableViewSource
 	{
-		private static NSString identifier = new NSString("cell");
-		private static string fontName = "Courier";
-		private static int fontSize = 12;
+		static NSString identifier = new NSString("cell");
+		const string fontName = "Courier";
+		const int fontSize = 12;
 
 		public List<ValidatedJSON> Entries { private get; set; }
 
