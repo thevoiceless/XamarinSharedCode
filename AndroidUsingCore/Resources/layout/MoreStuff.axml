@@ -14,4 +14,11 @@
         android:layout_height="wrap_content"
         android:editable="false"
         android:hint="@string/location_info" />
+    <EditText
+        android:id="@+id/areaCodeInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:hint="@string/loading_area_codes"
+        android:visibility="gone" />
 </LinearLayout>

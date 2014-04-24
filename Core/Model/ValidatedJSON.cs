@@ -26,7 +26,7 @@ namespace Core
 					}
 				});
 
-			return resultObj ?? new ValidatedJSON ();
+			return resultObj ?? new ValidatedJSON();
 		}
 
 		public bool IsValid()

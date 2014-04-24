@@ -19,6 +19,7 @@
 	<string name="confirm_delete_msg">Are you sure you want to delete all saved results?</string>
 	<string name="get_location">Get location</string>
 	<string name="location_info">Location info</string>
+	<string name="loading_area_codes">Loading nearby area codes...</string>
 
 </resources>
 	
