@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -88,6 +89,7 @@ namespace iPhoneUsingCore
 		static NSString identifier = new NSString("cell");
 		const string fontName = "Courier";
 		const int fontSize = 12;
+		const int magic_height_fudge = 30;
 
 		public List<ValidatedJSON> Entries { private get; set; }
 
@@ -96,12 +98,12 @@ namespace iPhoneUsingCore
 			Entries = vals;
 		}
 
-		public override int RowsInSection (UITableView tableview, int section)
+		public override int RowsInSection(UITableView tableview, int section)
 		{
 			return Entries.Count;
 		}
 
-		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			UITableViewCell cell = tableView.DequeueReusableCell(identifier);
 			if (cell == null)
@@ -118,11 +120,12 @@ namespace iPhoneUsingCore
 			return cell;
 		}
 
-		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+		public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
 			string json = Entries[indexPath.Row].AsJSON();
 			int newlines = json.Split('\n').Length + 1;
-			return ((NSString) json).StringSize(UIFont.FromName(fontName, fontSize)).Height * newlines;
+			return ((NSString) json).StringSize(UIFont.FromName(fontName, fontSize), new SizeF(tableView.Bounds.Width, 1000), UILineBreakMode.WordWrap).Height + magic_height_fudge;
+//			return ((NSString) json).StringSize(UIFont.FromName(fontName, fontSize)).Height * newlines;
 		}
 	}
 }
