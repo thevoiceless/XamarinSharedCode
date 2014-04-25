@@ -40,7 +40,7 @@ namespace iPhoneUsingCore
 				Position position = await locator.GetPositionAsync(10000);
 				EnableLocationButton();
 
-				string info = string.Format("Latitude: {0}\nLongitude: {1}\nHeading: {2}\nSpeed: {3}\nAltitude: {4}\nAlt. Accuracy: {5}\nOverall Accuracy: {6}",
+				string info = string.Format("Position:\n\nLatitude: {0}\nLongitude: {1}\nHeading: {2}\nSpeed: {3}\nAltitude: {4}\nAlt. Accuracy: {5}\nOverall Accuracy: {6}",
 					position.Latitude, position.Longitude, position.Heading, position.Speed, position.Altitude, position.AltitudeAccuracy, position.Accuracy);
 				locationInfo.TextColor = UIColor.DarkGray;
 				locationInfo.Text = info;
